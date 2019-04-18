@@ -8,25 +8,39 @@ class TCPServer {
       String clientSentence; 
       String capitalizedSentence; 
 
-      ServerSocket welcomeSocket = new ServerSocket(6789); 
-  
-      while(true) { 
-  
-            Socket connectionSocket = welcomeSocket.accept(); 
 
-           BufferedReader inFromClient = 
+    boolean f= true;
+      String text2="";
+
+      ServerSocket welcomeSocket = new ServerSocket(9876); 
+     
+      Socket connectionSocket = welcomeSocket.accept();
+      String text= "";
+      BufferedReader inFromClient = 
               new BufferedReader(new
               InputStreamReader(connectionSocket.getInputStream())); 
+      text= inFromClient.readLine();
+      System.out.println(text);
+      while(!text.equals("bye")) { 
+  
+          
 
+         
            
+           
+         
+           BufferedReader inFromServer = 
+        	        new BufferedReader(new InputStreamReader(System.in)); 
+           text2=inFromServer.readLine();
+           String text3=text2+"SERVER ACCEPTED THE MESSAGE";
            DataOutputStream  outToClient = 
                    new DataOutputStream(connectionSocket.getOutputStream()); 
 
-                 clientSentence = inFromClient.readLine(); 
-
-                 capitalizedSentence = clientSentence.toUpperCase() + '\n'; 
-
-                 outToClient.writeBytes(capitalizedSentence); 
+           outToClient.writeBytes(text3+'\n'); 
+           f=true;
               } 
-          } 
+      
+          }
+  
+  
       } 
